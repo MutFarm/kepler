@@ -8,6 +8,12 @@
 
 Deployed on MutFarm to track cluster power consumption and estimate electricity cost per node and per workload.
 
+### Custom power dashboard
+
+Live watts per node, estimated daily kWh, monthly cost in €, and top consumers by pod and namespace.
+
+![MutFarm power consumption dashboard](img/grafana_power_cluster.png)
+
 ## How it works
 
 Kepler runs as a DaemonSet on each node and reads:
@@ -30,17 +36,6 @@ On MutFarm nodes (Intel i5-7500, no ACPI power meters), Kepler uses **RAPL sysfs
 | `kepler_container_package_joules_total` | Per-container CPU attribution |
 
 > **Note:** RAPL measures CPU + RAM only. Add ~5–10W per node for motherboard, fans, storage, and NIC to estimate real wall power.
-
-## Grafana dashboard
-
-Custom dashboard **MutFarm - Power Consumption (RAPL)** in the `MutFarm` folder:
-- Live watts per node (CPU + RAM)
-- Cluster total with node selector (filter by one or multiple nodes)
-- Estimated daily kWh and monthly cost (configurable €/kWh)
-- Top 10 pods and namespaces by power consumption
-- Cumulative kWh today per node
-
-The official Kepler Exporter dashboard (v0.8.0) is also imported for detailed process/container breakdowns.
 
 ## Namespace setup
 
